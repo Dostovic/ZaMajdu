@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="bs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Za Majdu ❤️</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(circle, #240914 0%, #090306 100%);
+            font-family: 'Segoe UI', sans-serif;
+            color: #fff;
+        }
+
+        .heart-box {
+            position: relative;
+            z-index: 2;
+            width: 280px;
+            height: 280px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        svg.heart {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+            filter: drop-shadow(0 0 18px rgba(255, 42, 109, 0.6));
+        }
+
+        .path {
+            fill: rgba(255, 42, 109, 0);
+            stroke: #ff2a6d;
+            stroke-width: 3.5;
+            stroke-linecap: round;
+            stroke-dasharray: 850;
+            stroke-dashoffset: 850;
+            animation: draw 3.5s ease forwards, fill 1.2s ease 3s forwards;
+        }
+
+        .name {
+            position: absolute;
+            top: 46%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: Georgia, serif;
+            font-style: italic;
+            font-size: 2.4rem;
+            font-weight: bold;
+            color: #fff0f3;
+            text-shadow: 0 0 14px #ff2a6d;
+            opacity: 0;
+            animation: fadeIn 1.5s ease 3.2s forwards;
+        }
+
+        .j-wrap {
+            position: relative;
+            display: inline-block;
+        }
+
+        .mini-heart {
+            position: absolute;
+            top: -0.14em;
+            left: 56%;
+            transform: translateX(-50%);
+            width: 0.34em;
+            height: 0.34em;
+            fill: #ff2a6d;
+        }
+
+        .word {
+            position: fixed;
+            z-index: 1;
+            opacity: 0;
+            text-align: center;
+            pointer-events: none;
+            transition: opacity 1.2s ease;
+        }
+
+        .word.show { opacity: 1; }
+        .word span { display: block; font-size: 1.25rem; color: #ffccd5; text-shadow: 0 0 10px rgba(255, 42, 109, 0.8); }
+        .word small { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+
+        @keyframes draw { to { stroke-dashoffset: 0; } }
+        @keyframes fill { to { fill: rgba(255, 42, 109, 0.25); } }
+        @keyframes fadeIn { to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+    <div class="heart-box">
+        <svg class="heart" viewBox="0 0 256 256">
+            <path class="path" d="M128,224 C128,224 24,152 24,84 C24,50 50,24 82,24 C104,24 120,38 128,54 C136,38 152,24 174,24 C206,24 232,50 232,84 C232,152 128,224 128,224 Z" />
+        </svg>
+        <div class="name">
+            Ma<span class="j-wrap">&#x0237;<svg class="mini-heart" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>da
+        </div>
+    </div>
+
+    <script>
+        const items = [
+            ["Volim te", "Bosanski"], ["I love you", "Engleski"], ["Te amo", "Španski"],
+            ["Je t'aime", "Francuski"], ["Ti amo", "Italijanski"], ["Ich liebe dich", "Njemački"],
+            ["Eu te amo", "Portugalski"], ["Seni seviyorum", "Turski"], ["Я тебя люблю", "Ruski"],
+            ["أحبك", "Arapski"], ["愛してる", "Japanski"], ["사랑해", "Korejski"],
+            ["我爱你", "Kineski"], ["Σ' αγαπώ", "Grčki"], ["Jag älskar dig", "Švedski"],
+            ["Volim te, Majda ❤️", "Zauvijek"]
+        ];
+
+        let i = 0;
+        setTimeout(() => {
+            const timer = setInterval(() => {
+                if (i >= items.length) return clearInterval(timer);
+
+                const [text, lang] = items[i++];
+                const el = document.createElement("div");
+                el.className = "word";
+
+                let x, y;
+                do {
+                    x = 8 + Math.random() * 84;
+                    y = 8 + Math.random() * 84;
+                } while (Math.abs(x - 50) < 18 && Math.abs(y - 50) < 22);
+
+                el.style.left = x + "%";
+                el.style.top = y + "%";
+                el.style.transform = `translate(-50%, -50%) rotate(${(Math.random() * 10 - 5).toFixed(1)}deg)`;
+                el.innerHTML = `<span>${text}</span><small>${lang}</small>`;
+
+                document.body.appendChild(el);
+                requestAnimationFrame(() => el.classList.add("show"));
+            }, 900);
+        }, 3800);
+    </script>
+
+</body>
+</html>
